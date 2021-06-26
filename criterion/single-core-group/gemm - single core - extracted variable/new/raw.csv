@@ -1,0 +1,11 @@
+group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
+single-core-group,gemm - single core - extracted variable,,,,580450692.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,580874914.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,580280011.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,582359348.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,582151077.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,581797645.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,581112662.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,582124235.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,581882233.0,ns,3
+single-core-group,gemm - single core - extracted variable,,,,581538882.0,ns,3
