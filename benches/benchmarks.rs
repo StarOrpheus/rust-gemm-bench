@@ -5,10 +5,7 @@ use rand::rngs::ThreadRng;
 use rust_hello_world::simple_matrix::SimpleMatrix;
 use rust_hello_world::simple_matrix2::SimpleMatrix2;
 use rust_hello_world::rayon_matrix::RayonMatrix;
-
-fn gen_data(n: usize, m: usize, rng: &mut ThreadRng) -> Vec<f32> {
-    (0..n * m).map(|_| rng.gen()).collect()
-}
+use rust_hello_world::gen_data;
 
 fn criterion_benchmark(c: &mut Criterion) {
     let mut rng = rand::thread_rng();

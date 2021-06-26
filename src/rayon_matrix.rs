@@ -2,12 +2,20 @@ use std::ops::{Index, IndexMut, Mul};
 use rayon::iter::IntoParallelIterator;
 use rayon::iter::ParallelIterator;
 use rayon::prelude::ParallelSliceMut;
+use std::fmt::{Debug, Formatter};
 
-#[derive(Debug)]
 pub struct RayonMatrix {
     data: Vec<f32>,
     n: usize,
     m: usize
+}
+
+impl Debug for RayonMatrix {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let sz = if self.data.len() < 8 {self.data.len()} else {8};
+
+        write!(f, "RayonMatrix {{ {:?} n={} m={} }}", &self.data[..sz], self.n, self.m)
+    }
 }
 
 impl Index<usize> for RayonMatrix {
@@ -16,7 +24,7 @@ impl Index<usize> for RayonMatrix {
     fn index(&self, index: usize) -> &Self::Output {
         assert!(index < self.n, "Invalid argument: Out of range!");
 
-        &self.data[index * self.m..(index + 1) * self.m]
+        unsafe { self.data.get_unchecked(index * self.m..(index + 1) * self.m) }
     }
 }
 
@@ -24,7 +32,7 @@ impl IndexMut<usize> for RayonMatrix {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
         assert!(index < self.n, "Invalid argument: Out of range!");
 
-        &mut self.data[index * self.m..(index + 1) * self.m]
+        unsafe { self.data.get_unchecked_mut(index * self.m..(index + 1) * self.m) }
     }
 }
 

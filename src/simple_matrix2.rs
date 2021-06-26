@@ -1,6 +1,6 @@
 use std::ops::{Index, IndexMut, Mul};
+use std::fmt::{Debug, Formatter};
 
-#[derive(Debug)]
 pub struct SimpleMatrix2 {
     data: Vec<f32>,
     n: usize,
@@ -13,7 +13,7 @@ impl Index<usize> for SimpleMatrix2 {
     fn index(&self, index: usize) -> &Self::Output {
         assert!(index < self.n, "Invalid argument: Out of range!");
 
-        &self.data[index * self.m..(index + 1) * self.m]
+        unsafe { self.data.get_unchecked(index * self.m..(index + 1) * self.m) }
     }
 }
 
@@ -21,7 +21,7 @@ impl IndexMut<usize> for SimpleMatrix2 {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
         assert!(index < self.n, "Invalid argument: Out of range!");
 
-        &mut self.data[index * self.m..(index + 1) * self.m]
+        unsafe { self.data.get_unchecked_mut(index * self.m..(index + 1) * self.m) }
     }
 }
 
@@ -63,6 +63,14 @@ impl SimpleMatrix2 {
         SimpleMatrix2 {
             data, n, m
         }
+    }
+}
+
+impl Debug for SimpleMatrix2 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let sz = if self.data.len() < 8 {self.data.len()} else {8};
+
+        write!(f, "SimpleMatrix2 {{ {:?} n={} m={} }}", &self.data[..sz], self.n, self.m)
     }
 }
 
