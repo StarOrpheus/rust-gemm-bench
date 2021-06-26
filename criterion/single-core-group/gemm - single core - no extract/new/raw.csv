@@ -1,11 +1,11 @@
 group,function,value,throughput_num,throughput_type,sample_measured_value,unit,iteration_count
-single-core-group,gemm - single core - no extract,,,,682192017.0,ns,1
-single-core-group,gemm - single core - no extract,,,,681114373.0,ns,1
-single-core-group,gemm - single core - no extract,,,,681070761.0,ns,1
-single-core-group,gemm - single core - no extract,,,,681187371.0,ns,1
-single-core-group,gemm - single core - no extract,,,,681066840.0,ns,1
-single-core-group,gemm - single core - no extract,,,,681123170.0,ns,1
-single-core-group,gemm - single core - no extract,,,,681110938.0,ns,1
-single-core-group,gemm - single core - no extract,,,,681027106.0,ns,1
-single-core-group,gemm - single core - no extract,,,,680920297.0,ns,1
-single-core-group,gemm - single core - no extract,,,,680975725.0,ns,1
+single-core-group,gemm - single core - no extract,,,,671324344.0,ns,1
+single-core-group,gemm - single core - no extract,,,,671348283.0,ns,1
+single-core-group,gemm - single core - no extract,,,,671743374.0,ns,1
+single-core-group,gemm - single core - no extract,,,,671894754.0,ns,1
+single-core-group,gemm - single core - no extract,,,,671529034.0,ns,1
+single-core-group,gemm - single core - no extract,,,,671632193.0,ns,1
+single-core-group,gemm - single core - no extract,,,,671867914.0,ns,1
+single-core-group,gemm - single core - no extract,,,,672028004.0,ns,1
+single-core-group,gemm - single core - no extract,,,,672192724.0,ns,1
+single-core-group,gemm - single core - no extract,,,,673486110.0,ns,1
