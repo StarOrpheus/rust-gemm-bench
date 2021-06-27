@@ -1,6 +1,7 @@
 use std::ops::{Index, IndexMut, Mul};
 use std::fmt::{Debug, Formatter};
 
+#[derive(Clone, PartialEq)]
 pub struct SimpleMatrix2 {
     data: Vec<f32>,
     n: usize,
@@ -33,11 +34,13 @@ impl Mul for &SimpleMatrix2 {
 
         let mut result = SimpleMatrix2::new(self.n, rhs.m);
 
+        let trans = rhs.transposed();
+
         for i in 0..self.n {
             for k in 0..rhs.m {
                 let mut r = 0f32;
                 for j in 0..self.m {
-                    r += self[i][j] * rhs[j][k]
+                    r += trans[i][j] * trans[k][j]
                 }
                 result[i][k] = r;
             }
@@ -64,6 +67,16 @@ impl SimpleMatrix2 {
             data, n, m
         }
     }
+
+    pub fn transposed(&self) -> SimpleMatrix2 {
+        let mut result = SimpleMatrix2::new(self.m, self.n);
+        for i in 0..self.n {
+            for j in 0..self.m {
+                result[j][i] = self[i][j]
+            }
+        }
+        result
+    }
 }
 
 impl Debug for SimpleMatrix2 {
@@ -81,6 +94,10 @@ mod tests {
     #[test]
     fn matrix_test() {
         let a = SimpleMatrix2::from(2, 2, vec![1., 2., 3., 4.]);
+
+        let a_T = SimpleMatrix2::from(2, 2, vec![1., 3., 2., 4.]);
+        assert_eq!(a.transposed(), a_T);
+
         let b = SimpleMatrix2::from(2, 2, vec![5., 6., 7., 8.]);
         let c = &a * &b;
 
