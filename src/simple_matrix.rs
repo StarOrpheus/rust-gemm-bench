@@ -11,7 +11,7 @@ impl Index<usize> for SimpleMatrix {
     type Output = [f32];
 
     fn index(&self, index: usize) -> &Self::Output {
-        assert!(index < self.n, "Invalid argument: Out of range!");
+        debug_assert!(index < self.n, "Invalid argument: Out of range!");
 
         unsafe { self.data.get_unchecked(index * self.m..(index + 1) * self.m) }
     }
@@ -19,7 +19,7 @@ impl Index<usize> for SimpleMatrix {
 
 impl IndexMut<usize> for SimpleMatrix {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        assert!(index < self.n, "Invalid argument: Out of range!");
+        debug_assert!(index < self.n, "Invalid argument: Out of range!");
 
         unsafe { self.data.get_unchecked_mut(index * self.m..(index + 1) * self.m) }
     }
@@ -29,7 +29,7 @@ impl Mul for &SimpleMatrix {
     type Output = SimpleMatrix;
 
     fn mul(self, rhs: Self) -> Self::Output {
-        assert_eq!(self.m, rhs.n, "Invalid arguments!");
+        debug_assert_eq!(self.m, rhs.n, "Invalid arguments!");
 
         let mut result = SimpleMatrix::new(self.n, rhs.m);
 
@@ -56,7 +56,7 @@ impl SimpleMatrix {
     }
 
     pub fn from(n: usize, m: usize, data: Vec<f32>) -> SimpleMatrix {
-        assert_eq!(data.len(), n * m, "Invalid argument!");
+        debug_assert_eq!(data.len(), n * m, "Invalid argument!");
 
         SimpleMatrix {
             data, n, m
