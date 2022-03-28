@@ -22,7 +22,7 @@ impl Index<usize> for RayonMatrix {
     type Output = [f32];
 
     fn index(&self, index: usize) -> &Self::Output {
-        assert!(index < self.n, "Invalid argument: Out of range!");
+        debug_assert!(index < self.n, "Invalid argument: Out of range!");
 
         unsafe { self.data.get_unchecked(index * self.m..(index + 1) * self.m) }
     }
@@ -30,7 +30,7 @@ impl Index<usize> for RayonMatrix {
 
 impl IndexMut<usize> for RayonMatrix {
     fn index_mut(&mut self, index: usize) -> &mut Self::Output {
-        assert!(index < self.n, "Invalid argument: Out of range!");
+        debug_assert!(index < self.n, "Invalid argument: Out of range!");
 
         unsafe { self.data.get_unchecked_mut(index * self.m..(index + 1) * self.m) }
     }
@@ -40,7 +40,8 @@ impl Mul for &RayonMatrix {
     type Output = RayonMatrix;
 
     fn mul(self, rhs: Self) -> Self::Output {
-        assert_eq!(self.m, rhs.n, "Invalid arguments!");
+        debug_assert_eq!(self.m, rhs.n, "Invalid arguments!");
+        let rhs_t = rhs.transposed();
 
         let mut result: Vec<(usize, f32)> =
             (0..self.n * rhs.m)
@@ -49,9 +50,12 @@ impl Mul for &RayonMatrix {
                     let i = pos / rhs.m; // (i,j) in the result matrix
                     let k = pos % rhs.m;
 
+                    let column = &rhs_t[k];
+                    let line = &self[i];
+
                     let mut result = 0f32;
                     for j in 0..self.m {
-                        result += self[i][j] * rhs[j][k];
+                        result += line[j] * column[j];
                     }
 
                     (pos, result)
@@ -80,11 +84,21 @@ impl RayonMatrix {
     }
 
     pub fn from(n: usize, m: usize, data: Vec<f32>) -> RayonMatrix {
-        assert_eq!(data.len(), n * m, "Invalid argument!");
+        debug_assert_eq!(data.len(), n * m, "Invalid argument!");
 
         RayonMatrix {
             data, n, m
         }
+    }
+
+    pub fn transposed(&self) -> RayonMatrix {
+        let mut result = RayonMatrix::new(self.m, self.n);
+        for i in 0..self.n {
+            for j in 0..self.m {
+                result[j][i] = self[i][j]
+            }
+        }
+        result
     }
 }
 

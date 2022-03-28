@@ -1,6 +1,4 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
-use rand::Rng;
-use rand::rngs::ThreadRng;
 
 use rust_hello_world::simple_matrix::SimpleMatrix;
 use rust_hello_world::simple_matrix2::SimpleMatrix2;

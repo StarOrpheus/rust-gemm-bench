@@ -95,8 +95,8 @@ mod tests {
     fn matrix_test() {
         let a = SimpleMatrix2::from(2, 2, vec![1., 2., 3., 4.]);
 
-        let a_T = SimpleMatrix2::from(2, 2, vec![1., 3., 2., 4.]);
-        assert_eq!(a.transposed(), a_T);
+        let a_t = SimpleMatrix2::from(2, 2, vec![1., 3., 2., 4.]);
+        assert_eq!(a.transposed(), a_t);
 
         let b = SimpleMatrix2::from(2, 2, vec![5., 6., 7., 8.]);
         let c = &a * &b;
